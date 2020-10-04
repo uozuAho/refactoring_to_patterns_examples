@@ -11,7 +11,12 @@
 
         public Node find(string textBuffer, int textBegin, int textEnd)
         {
-            return new NodeFactory().createStringNode(textBuffer, textBegin, textEnd, _parser.ShouldDecodeNodes);
+            return new NodeFactory()
+                .createStringNode(
+                    textBuffer,
+                    textBegin,
+                    textEnd,
+                    _parser.StringNodeParsingOption.ShouldDecodeNodes);
         }
     }
 }

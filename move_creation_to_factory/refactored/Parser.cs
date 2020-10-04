@@ -2,8 +2,10 @@
 {
     internal class Parser
     {
-        public bool ShouldDecodeNodes { get; set; }
         public bool ShouldRemoveEscapeCharacters { get; set; }
+
+        public StringNodeParsingOption StringNodeParsingOption { get; }
+            = new StringNodeParsingOption();
 
         public Node parse(string url)
         {

@@ -6,7 +6,7 @@
         {
             var parser = new Parser
             {
-                ShouldDecodeNodes = true,
+                StringNodeParsingOption = { ShouldDecodeNodes = true },
                 ShouldRemoveEscapeCharacters = true
             };
 
