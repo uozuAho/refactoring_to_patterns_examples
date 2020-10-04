@@ -2,20 +2,16 @@
 {
     internal class StringParser
     {
-        private readonly Parser _parser;
+        private readonly NodeFactory _nodeFactory;
 
-        public StringParser(Parser parser)
+        public StringParser(NodeFactory nodeFactory)
         {
-            _parser = parser;
+            _nodeFactory = nodeFactory;
         }
 
         public Node FindString(string textBuffer, int textBegin, int textEnd)
         {
-            return _parser.NodeFactory
-                .CreateStringNode(
-                    textBuffer,
-                    textBegin,
-                    textEnd);
+            return _nodeFactory.CreateStringNode(textBuffer, textBegin, textEnd);
         }
     }
 }

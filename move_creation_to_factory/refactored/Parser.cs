@@ -13,7 +13,8 @@
         {
             string content = "text loaded from url";
 
-            return new StringParser(this).FindString(content, 0, content.Length);
+            return new StringParser(NodeFactory)
+                .FindString(content, 0, content.Length);
         }
     }
 }
