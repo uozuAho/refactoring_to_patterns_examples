@@ -9,9 +9,9 @@
             _parser = parser;
         }
 
-        public Node find(string textBuffer, int textBegin, int textEnd)
+        public Node Find(string textBuffer, int textBegin, int textEnd)
         {
-            return StringNode.createStringNode(textBuffer, textBegin, textEnd, _parser.ShouldDecodeNodes);
+            return StringNode.CreateStringNode(textBuffer, textBegin, textEnd, _parser.ShouldDecodeNodes);
         }
     }
 }

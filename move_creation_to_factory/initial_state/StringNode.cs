@@ -7,7 +7,7 @@
 
         }
 
-        public static Node createStringNode(
+        public static Node CreateStringNode(
             string textBuffer, int textBegin, int textEnd, bool shouldDecode)
         {
             if (shouldDecode)

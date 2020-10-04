@@ -5,11 +5,11 @@
         public bool ShouldDecodeNodes { get; set; }
         public bool ShouldRemoveEscapeCharacters { get; set; }
 
-        public Node parse(string url)
+        public Node Parse(string url)
         {
             string content = "text loaded from url";
 
-            return new StringParser(this).find(content, 0, content.Length);
+            return new StringParser(this).Find(content, 0, content.Length);
         }
     }
 }

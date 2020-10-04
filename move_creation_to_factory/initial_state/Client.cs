@@ -7,10 +7,9 @@
             var parser = new Parser
             {
                 ShouldDecodeNodes = true,
-                ShouldRemoveEscapeCharacters = true
             };
 
-            var parentNode = parser.parse("https://www.google.com.au");
+            var parentNode = parser.Parse("https://www.google.com.au");
         }
     }
 }
