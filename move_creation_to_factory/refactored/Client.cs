@@ -1,6 +1,6 @@
 ﻿namespace move_creation_to_factory.refactored
 {
-    class Client
+    internal class Client
     {
         static void NewMain(string[] args)
         {

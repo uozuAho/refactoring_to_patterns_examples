@@ -1,6 +1,6 @@
 ﻿namespace move_creation_to_factory.refactored
 {
-    public class StringNode : Node
+    internal class StringNode : Node
     {
         public StringNode(string textBuffer, int textBegin, int textEnd)
         {

@@ -1,6 +1,6 @@
 ﻿namespace move_creation_to_factory.initial_state
 {
-    public class Parser
+    internal class Parser
     {
         public bool ShouldDecodeNodes { get; set; }
         public bool ShouldRemoveEscapeCharacters { get; set; }

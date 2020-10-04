@@ -1,6 +1,6 @@
-﻿namespace move_creation_to_factory.initial_state
+﻿namespace move_creation_to_factory.refactored
 {
-    public class DecodingStringNode : Node
+    internal class DecodingStringNode : Node
     {
         public DecodingStringNode(StringNode node)
         {

@@ -1,6 +1,6 @@
 ﻿namespace move_creation_to_factory.initial_state
 {
-    public class StringParser
+    internal class StringParser
     {
         private readonly Parser _parser;
 
