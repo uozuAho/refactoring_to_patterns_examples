@@ -2,10 +2,17 @@
 {
     internal class NodeFactory
     {
-        public Node createStringNode(
-            string textBuffer, int textBegin, int textEnd, bool shouldDecode)
+        private readonly bool _shouldDecode;
+
+        public NodeFactory(StringNodeParsingOption option)
         {
-            if (shouldDecode)
+            _shouldDecode = option.ShouldDecodeNodes;
+        }
+
+        public Node CreateStringNode(
+            string textBuffer, int textBegin, int textEnd)
+        {
+            if (_shouldDecode)
                 return new DecodingStringNode(new StringNode(textBuffer, textBegin, textEnd));
             return new StringNode(textBuffer, textBegin, textEnd);
         }

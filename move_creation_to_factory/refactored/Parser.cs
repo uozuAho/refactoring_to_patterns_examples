@@ -2,16 +2,18 @@
 {
     internal class Parser
     {
-        public bool ShouldRemoveEscapeCharacters { get; set; }
+        public NodeFactory NodeFactory { get; }
 
-        public StringNodeParsingOption StringNodeParsingOption { get; }
-            = new StringNodeParsingOption();
+        public Parser(NodeFactory nodeFactory)
+        {
+            NodeFactory = nodeFactory;
+        }
 
-        public Node parse(string url)
+        public Node Parse(string url)
         {
             string content = "text loaded from url";
 
-            return new StringParser(this).find(content, 0, content.Length);
+            return new StringParser(this).FindString(content, 0, content.Length);
         }
     }
 }

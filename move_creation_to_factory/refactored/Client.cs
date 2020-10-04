@@ -4,13 +4,12 @@
     {
         static void NewMain(string[] args)
         {
-            var parser = new Parser
+            var parser = new Parser(new NodeFactory(new StringNodeParsingOption
             {
-                StringNodeParsingOption = { ShouldDecodeNodes = true },
-                ShouldRemoveEscapeCharacters = true
-            };
+                ShouldDecodeNodes = true
+            }));
 
-            var parentNode = parser.parse("https://www.google.com.au");
+            var parentNode = parser.Parse("https://www.google.com.au");
         }
     }
 }

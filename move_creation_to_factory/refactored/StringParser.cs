@@ -9,14 +9,13 @@
             _parser = parser;
         }
 
-        public Node find(string textBuffer, int textBegin, int textEnd)
+        public Node FindString(string textBuffer, int textBegin, int textEnd)
         {
-            return new NodeFactory()
-                .createStringNode(
+            return _parser.NodeFactory
+                .CreateStringNode(
                     textBuffer,
                     textBegin,
-                    textEnd,
-                    _parser.StringNodeParsingOption.ShouldDecodeNodes);
+                    textEnd);
         }
     }
 }
