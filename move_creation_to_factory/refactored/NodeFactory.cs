@@ -4,9 +4,9 @@
     {
         private readonly bool _shouldDecode;
 
-        public NodeFactory(StringNodeParsingOption option)
+        public NodeFactory(StringNodeParsingOptions options)
         {
-            _shouldDecode = option.ShouldDecodeNodes;
+            _shouldDecode = options.ShouldDecodeNodes;
         }
 
         public Node CreateStringNode(

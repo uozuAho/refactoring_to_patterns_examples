@@ -4,10 +4,12 @@
     {
         static void NewMain(string[] args)
         {
-            var parser = new Parser(new NodeFactory(new StringNodeParsingOption
+            var nodeFactory = new NodeFactory(new StringNodeParsingOptions
             {
                 ShouldDecodeNodes = true
-            }));
+            });
+
+            var parser = new Parser(nodeFactory);
 
             var parentNode = parser.Parse("https://www.google.com.au");
         }
