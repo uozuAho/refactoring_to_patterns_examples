@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "move_creation_to_factory", "move_creation_to_factory\move_creation_to_factory.csproj", "{C610B542-3DC6-44CD-83E2-B1AB9201D421}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{120DB5CF-28B8-4474-8230-AA728101D5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120DB5CF-28B8-4474-8230-AA728101D5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120DB5CF-28B8-4474-8230-AA728101D5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120DB5CF-28B8-4474-8230-AA728101D5E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C610B542-3DC6-44CD-83E2-B1AB9201D421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C610B542-3DC6-44CD-83E2-B1AB9201D421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C610B542-3DC6-44CD-83E2-B1AB9201D421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C610B542-3DC6-44CD-83E2-B1AB9201D421}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4AB6599B-5D50-4578-909B-C876D55BC42E}
+	EndGlobalSection
+EndGlobal
