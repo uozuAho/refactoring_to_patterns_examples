@@ -11,8 +11,8 @@ namespace encapsulate_classes_with_factory.refactored
             var result = new List<AttributeDescriptor>
             {
                 AttributeDescriptor.ForInteger("remoteId", typeof(Client)),
-                new DefaultDescriptor("createdDate", typeof(Client), typeof(DateTime)),
-                new DefaultDescriptor("lastChangedDate", typeof(Client), typeof(DateTime)),
+                AttributeDescriptor.ForDate("createdDate", typeof(Client)),
+                AttributeDescriptor.ForDate("lastChangedDate", typeof(Client)),
                 new ReferenceDescriptor("createdBy", typeof(Client), typeof(User), typeof(RemoteUser)),
                 new ReferenceDescriptor("lastChangedBy", typeof(Client), typeof(User), typeof(RemoteUser)),
                 AttributeDescriptor.ForInteger("optimisticLockVersion", typeof(Client)),
