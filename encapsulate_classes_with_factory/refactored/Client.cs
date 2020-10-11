@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using encapsulate_classes_with_factory.refactored.descriptors;
 
