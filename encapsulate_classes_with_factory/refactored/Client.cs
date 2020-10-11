@@ -13,8 +13,8 @@ namespace encapsulate_classes_with_factory.refactored
                 AttributeDescriptor.ForInteger("remoteId", typeof(Client)),
                 AttributeDescriptor.ForDate("createdDate", typeof(Client)),
                 AttributeDescriptor.ForDate("lastChangedDate", typeof(Client)),
-                new ReferenceDescriptor("createdBy", typeof(Client), typeof(User), typeof(RemoteUser)),
-                new ReferenceDescriptor("lastChangedBy", typeof(Client), typeof(User), typeof(RemoteUser)),
+                AttributeDescriptor.ForSomething("createdBy", typeof(Client), typeof(User), typeof(RemoteUser)),
+                AttributeDescriptor.ForSomething("lastChangedBy", typeof(Client), typeof(User), typeof(RemoteUser)),
                 AttributeDescriptor.ForInteger("optimisticLockVersion", typeof(Client)),
             };
 

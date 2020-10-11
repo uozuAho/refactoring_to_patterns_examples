@@ -15,5 +15,10 @@ namespace encapsulate_classes_with_factory.refactored.descriptors
         {
             return new DefaultDescriptor(name, type, typeof(DateTime));
         }
+
+        public static AttributeDescriptor ForSomething(string name, Type type, Type type1, Type type2)
+        {
+            return new ReferenceDescriptor(name, type, type1, type2);
+        }
     }
 }
