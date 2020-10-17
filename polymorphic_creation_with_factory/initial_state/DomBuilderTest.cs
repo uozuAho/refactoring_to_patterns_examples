@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace polymorphic_creation_with_factory.initial_state
 {
@@ -6,7 +6,7 @@ namespace polymorphic_creation_with_factory.initial_state
     {
         private OutputBuilder builder;
 
-        public void testAddAboveRoot()
+        public void TestAddAboveRoot()
         {
             var invalidResult = "<orders>" +
                                 "<order>" +

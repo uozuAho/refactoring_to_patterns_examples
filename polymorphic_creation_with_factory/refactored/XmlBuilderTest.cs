@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 
 namespace polymorphic_creation_with_factory.refactored
 {
-    public class XmlBuilderTest : TestCase
+    public class XmlBuilderTest : OutputBuilderTestBase
     {
-        private OutputBuilder builder;
-
-        public void testAddAboveRoot()
+        public void TestAddAboveRoot()
         {
             var invalidResult = "<orders>" +
                                 "<order>" +
@@ -14,7 +12,7 @@ namespace polymorphic_creation_with_factory.refactored
                                 "</orders>" +
                                 "<customer>" +
                                 "</customer>";
-            builder = new XmlBuilder("orders");
+            builder = CreateBuilder("orders");
             builder.AddBelow("order");
             try
             {
@@ -25,6 +23,11 @@ namespace polymorphic_creation_with_factory.refactored
             {
                 // ignored
             }
+        }
+
+        protected override OutputBuilder CreateBuilder(string rootName)
+        {
+            return new XmlBuilder(rootName);
         }
     }
 }
