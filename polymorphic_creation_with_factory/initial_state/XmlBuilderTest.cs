@@ -4,7 +4,7 @@ namespace polymorphic_creation_with_factory.initial_state
 {
     public class XmlBuilderTest : TestCase
     {
-        private OutputBuilder builder;
+        private OutputBuilder _builder;
 
         public void TestAddAboveRoot()
         {
@@ -14,11 +14,11 @@ namespace polymorphic_creation_with_factory.initial_state
                                 "</orders>" +
                                 "<customer>" +
                                 "</customer>";
-            builder = new XmlBuilder("orders");
-            builder.AddBelow("order");
+            _builder = new XmlBuilder("orders");
+            _builder.AddBelow("order");
             try
             {
-                builder.AddAbove("customer");
+                _builder.AddAbove("customer");
                 Fail("expecting Exception");
             }
             catch (Exception)

@@ -12,11 +12,11 @@ namespace polymorphic_creation_with_factory.refactored
                                 "</orders>" +
                                 "<customer>" +
                                 "</customer>";
-            builder = CreateBuilder("orders");
-            builder.AddBelow("order");
+            Builder = CreateBuilder("orders");
+            Builder.AddBelow("order");
             try
             {
-                builder.AddAbove("customer");
+                Builder.AddAbove("customer");
                 Fail("expecting Exception");
             }
             catch (Exception)
