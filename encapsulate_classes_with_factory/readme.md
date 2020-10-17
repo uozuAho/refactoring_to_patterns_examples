@@ -1,4 +1,4 @@
-# Move creation knowledge to factory
+# Encapsulate classes with factory
 
 https://industriallogic.com/xp/refactoring/classesWithFactory.html
 
