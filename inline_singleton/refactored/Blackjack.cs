@@ -6,6 +6,7 @@ namespace inline_singleton.refactored
         private readonly BufferedReader _input;
         private readonly Player _player;
         private readonly Player _dealer;
+        private HitStayResponse _hitStayResponse = new HitStayResponse();
 
         public Blackjack(int[] deck, BufferedReader input)
         {
@@ -24,7 +25,7 @@ namespace inline_singleton.refactored
             do
             {
                 Writeln("H)it or S)tay: ");
-                hitStayResponse = this.ObtainHitStayResponse(_input);
+                hitStayResponse = ObtainHitStayResponse(_input);
                 Writeln(hitStayResponse.ToString());
                 if (hitStayResponse.ShouldHit())
                 {
@@ -36,12 +37,13 @@ namespace inline_singleton.refactored
 
         private HitStayResponse ObtainHitStayResponse(BufferedReader input)
         {
-            return ObtainHitStayResponse2(input);
+            _hitStayResponse.ReadFrom(input);
+            return _hitStayResponse;
         }
 
         public void SetPlayerResponse(HitStayResponse newHitStayResponse)
         {
-            SetPlayerResponse2(newHitStayResponse);
+            _hitStayResponse = newHitStayResponse;
         }
 
         private bool CanPlayerHit(HitStayResponse hitStayResponse)
@@ -79,19 +81,6 @@ namespace inline_singleton.refactored
         public int GetPlayerTotal()
         {
             return 4;
-        }
-
-        private static HitStayResponse _hitStayResponse = new HitStayResponse();
-
-        public static HitStayResponse ObtainHitStayResponse2(BufferedReader input)
-        {
-            _hitStayResponse.ReadFrom(input);
-            return _hitStayResponse;
-        }
-
-        public static void SetPlayerResponse2(HitStayResponse newHitStayResponse)
-        {
-            _hitStayResponse = newHitStayResponse;
         }
     }
 }
