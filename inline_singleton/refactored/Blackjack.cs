@@ -24,7 +24,7 @@ namespace inline_singleton.refactored
             do
             {
                 Writeln("H)it or S)tay: ");
-                hitStayResponse = ObtainHitStayResponse(_input);
+                hitStayResponse = this.ObtainHitStayResponse(_input);
                 Writeln(hitStayResponse.ToString());
                 if (hitStayResponse.ShouldHit())
                 {
@@ -36,12 +36,12 @@ namespace inline_singleton.refactored
 
         private HitStayResponse ObtainHitStayResponse(BufferedReader input)
         {
-            return Console.ObtainHitStayResponse(input);
+            return ObtainHitStayResponse2(input);
         }
 
         public void SetPlayerResponse(HitStayResponse newHitStayResponse)
         {
-            Console.SetPlayerResponse(newHitStayResponse);
+            SetPlayerResponse2(newHitStayResponse);
         }
 
         private bool CanPlayerHit(HitStayResponse hitStayResponse)
@@ -79,6 +79,19 @@ namespace inline_singleton.refactored
         public int GetPlayerTotal()
         {
             return 4;
+        }
+
+        private static HitStayResponse _hitStayResponse = new HitStayResponse();
+
+        public static HitStayResponse ObtainHitStayResponse2(BufferedReader input)
+        {
+            _hitStayResponse.ReadFrom(input);
+            return _hitStayResponse;
+        }
+
+        public static void SetPlayerResponse2(HitStayResponse newHitStayResponse)
+        {
+            _hitStayResponse = newHitStayResponse;
         }
     }
 }
