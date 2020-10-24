@@ -24,7 +24,7 @@ namespace inline_singleton.refactored
             do
             {
                 Writeln("H)it or S)tay: ");
-                hitStayResponse = Console.ObtainHitStayResponse(_input);
+                hitStayResponse = ObtainHitStayResponse(_input);
                 Writeln(hitStayResponse.ToString());
                 if (hitStayResponse.ShouldHit())
                 {
@@ -32,6 +32,16 @@ namespace inline_singleton.refactored
                     Writeln(_player.GetHandAsString());
                 }
             } while (CanPlayerHit(hitStayResponse));
+        }
+
+        private HitStayResponse ObtainHitStayResponse(BufferedReader input)
+        {
+            return Console.ObtainHitStayResponse(input);
+        }
+
+        public void SetPlayerResponse(HitStayResponse newHitStayResponse)
+        {
+            Console.SetPlayerResponse(newHitStayResponse);
         }
 
         private bool CanPlayerHit(HitStayResponse hitStayResponse)

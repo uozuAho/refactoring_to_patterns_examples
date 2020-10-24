@@ -4,9 +4,9 @@ namespace inline_singleton.refactored
     {
         public void TestDealerStandsWhenPlayerBusts()
         {
-            Console.SetPlayerResponse(new TestAlwaysHitResponse());
             int[] deck = {10, 9, 7, 2, 6};
             var blackjack = new Blackjack(deck, new BufferedReader());
+            blackjack.SetPlayerResponse(new TestAlwaysHitResponse());
             blackjack.Play();
             AssertTrue("dealer wins", blackjack.DidDealerWin());
             AssertTrue("player loses", !blackjack.DidPlayerWin());
