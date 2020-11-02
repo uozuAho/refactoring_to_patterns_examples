@@ -46,8 +46,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
                 if (GetUnusedPercentage() != 1.0)
                     return new CapitalStrategyRevolver().Capital(this);
                 else
-                    return (OutstandingRiskAmount() * Duration() * RiskFactor())
-                           + (UnusedRiskAmount() * Duration() * UnusedRiskFactor());
+                    return new CapitalStrategyAdvisedLine().Capital(this);
             }
 
             return 0.0;
@@ -70,12 +69,12 @@ namespace replace_conditional_with_strategy.refactored_with_composition
             return 23;
         }
 
-        private double OutstandingRiskAmount()
+        public double OutstandingRiskAmount()
         {
             return _outstanding;
         }
 
-        private double UnusedRiskAmount()
+        public double UnusedRiskAmount()
         {
             return (Commitment - _outstanding);
         }
@@ -101,7 +100,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
             return ((endDate - beginDate).Milliseconds / MillisPerDay) / DaysPerYear;
         }
 
-        private double UnusedRiskFactor()
+        public double UnusedRiskFactor()
         {
             return initial_state.UnusedRiskFactor.GetFactors().ForRating(_riskRating);
         }
