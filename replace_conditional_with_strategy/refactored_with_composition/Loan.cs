@@ -11,7 +11,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
 
-        private DateTime? _expiry;
+        public DateTime? _expiry;
         private DateTime? _maturity;
         private double _outstanding;
         private double _riskRating;
@@ -54,7 +54,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
             if (_expiry == null && _maturity != null)
                 return new DurationStrategyTermLoan().Duration(this);
             else if (_expiry != null && _maturity == null)
-                return YearsTo(_expiry.Value);
+                return new DurationStrategyDefault().Duration(this);
             return 0.0;
         }
 
