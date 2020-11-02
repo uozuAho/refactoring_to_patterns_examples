@@ -14,10 +14,7 @@ namespace replace_conditional_with_strategy.refactored
             if (loan.Expiry != null && loan.Maturity == null)
             {
                 if (loan.GetUnusedPercentage() != 1.0)
-                    return loan.Commitment
-                           * loan.GetUnusedPercentage()
-                           * Duration(loan)
-                           * RiskFactor(loan.RiskRating);
+                    return new CapitalStrategyRevolver().Capital(loan);
                 else
                     return loan.OutstandingRiskAmount()
                            * Duration(loan)
