@@ -4,7 +4,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
     {
         public double Duration(Loan loan)
         {
-            return loan.YearsTo(loan._expiry.Value);
+            return loan.YearsTo(loan.Expiry.Value);
         }
     }
 }

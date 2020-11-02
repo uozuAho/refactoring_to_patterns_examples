@@ -6,42 +6,62 @@ namespace replace_conditional_with_strategy.refactored_with_composition
     public class Loan
     {
         public double Commitment;
+        public DateTime? Expiry;
         public List<Payment> Payments;
 
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
 
-        public DateTime? _expiry;
         private DateTime? _maturity;
         private double _outstanding;
         private double _riskRating;
         private readonly ICapitalStrategy _capitalStrategy;
+        private readonly IDurationStrategy _durationStrategy;
 
-        private Loan(
-            double commitment,
+        private Loan(double commitment,
             DateTime? maturity,
             double riskRating,
-            ICapitalStrategy capitalStrategy)
+            ICapitalStrategy capitalStrategy,
+            IDurationStrategy durationStrategy)
         {
             Commitment = commitment;
             _maturity = maturity;
             _riskRating = riskRating;
             _capitalStrategy = capitalStrategy;
+            _durationStrategy = durationStrategy;
         }
 
         public static Loan NewTermLoan(double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating, new CapitalStrategyTermLoan());
+            return new Loan(
+                commitment,
+                maturity,
+                riskRating,
+                new CapitalStrategyTermLoan(),
+                new DurationStrategyTermLoan()
+            );
         }
 
         public static Loan NewRevolver(double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating, new CapitalStrategyRevolver());
+            return new Loan(
+                commitment,
+                maturity,
+                riskRating,
+                new CapitalStrategyRevolver(),
+                new DurationStrategyDefault()
+            );
         }
 
         public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating, new CapitalStrategyAdvisedLine());
+            return new Loan(
+                commitment,
+                maturity,
+                riskRating,
+                new CapitalStrategyAdvisedLine(),
+                new DurationStrategyDefault()
+            );
         }
 
         public double Capital()
@@ -51,11 +71,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
 
         public double Duration()
         {
-            if (_expiry == null && _maturity != null)
-                return new DurationStrategyTermLoan().Duration(this);
-            else if (_expiry != null && _maturity == null)
-                return new DurationStrategyDefault().Duration(this);
-            return 0.0;
+            return _durationStrategy.Duration(this);
         }
 
         public double RiskFactor()
