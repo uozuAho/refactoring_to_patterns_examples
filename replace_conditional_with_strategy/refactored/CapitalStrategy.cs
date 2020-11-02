@@ -7,10 +7,10 @@ namespace replace_conditional_with_strategy.refactored
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
 
-        public double Capital(Loan loan)
+        public virtual double Capital(Loan loan)
         {
             if (loan.Expiry == null && loan.Maturity != null)
-                return loan.Commitment * Duration(loan) * RiskFactor(loan.RiskRating);
+                return new CapitalStrategyTermLoan().Capital(loan);
             if (loan.Expiry != null && loan.Maturity == null)
             {
                 if (loan.GetUnusedPercentage() != 1.0)
@@ -37,6 +37,11 @@ namespace replace_conditional_with_strategy.refactored
             return 0.0;
         }
 
+        protected double RiskFactor(double riskRating)
+        {
+            return refactored.RiskFactor.GetFactors().ForRating(riskRating);
+        }
+
         private double WeightedAverageDuration(Loan loan)
         {
             var duration = 0.0;
@@ -56,11 +61,6 @@ namespace replace_conditional_with_strategy.refactored
         {
             var beginDate = DateTime.Now;
             return ((endDate - beginDate).Milliseconds / MillisPerDay) / DaysPerYear;
-        }
-
-        private double RiskFactor(double riskRating)
-        {
-            return refactored.RiskFactor.GetFactors().ForRating(riskRating);
         }
 
         private double UnusedRiskFactor(double riskRating)
