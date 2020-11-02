@@ -44,7 +44,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
             if (_expiry != null && _maturity == null)
             {
                 if (GetUnusedPercentage() != 1.0)
-                    return Commitment * GetUnusedPercentage() * Duration() * RiskFactor();
+                    return new CapitalStrategyRevolver().Capital(this);
                 else
                     return (OutstandingRiskAmount() * Duration() * RiskFactor())
                            + (UnusedRiskAmount() * Duration() * UnusedRiskFactor());
@@ -65,7 +65,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
             return initial_state.RiskFactor.GetFactors().ForRating(_riskRating);
         }
 
-        private double GetUnusedPercentage()
+        public double GetUnusedPercentage()
         {
             return 23;
         }
