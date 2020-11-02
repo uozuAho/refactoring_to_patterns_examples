@@ -12,28 +12,33 @@ namespace replace_conditional_with_strategy.refactored
         public List<Payment> Payments;
 
         private double _outstanding = 0.0;
-        private CapitalStrategy _capitalStrategy = new CapitalStrategy();
+        private readonly CapitalStrategy _capitalStrategy;
 
-        private Loan(double commitment, DateTime? maturity, double riskRating)
+        private Loan(
+            double commitment,
+            DateTime? maturity,
+            double riskRating,
+            CapitalStrategy capitalStrategy)
         {
             Commitment = commitment;
             Maturity = maturity;
             RiskRating = riskRating;
+            _capitalStrategy = capitalStrategy;
         }
 
         public static Loan NewTermLoan(double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, maturity, riskRating, new CapitalStrategy());
         }
 
         public static Loan NewRevolver(double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, maturity, riskRating, new CapitalStrategy());
         }
 
         public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, maturity, riskRating, new CapitalStrategy());
         }
 
         public double Capital()
