@@ -11,16 +11,39 @@ namespace replace_conditional_with_strategy.refactored
         public double RiskRating;
         public List<Payment> Payments;
 
-        private double _outstanding;
+        private double _outstanding = 0.0;
+        private CapitalStrategy _capitalStrategy = new CapitalStrategy();
+
+        private Loan(double commitment, DateTime? maturity, double riskRating)
+        {
+            Commitment = commitment;
+            Maturity = maturity;
+            RiskRating = riskRating;
+        }
+
+        public static Loan NewTermLoan(double commitment, DateTime maturity, double riskRating)
+        {
+            return new Loan(commitment, maturity, riskRating);
+        }
+
+        public static Loan NewRevolver(double commitment, DateTime maturity, double riskRating)
+        {
+            return new Loan(commitment, maturity, riskRating);
+        }
+
+        public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
+        {
+            return new Loan(commitment, maturity, riskRating);
+        }
 
         public double Capital()
         {
-            return new CapitalStrategy().Capital(this);
+            return _capitalStrategy.Capital(this);
         }
 
         public double Duration(Loan loan)
         {
-            return new CapitalStrategy().Duration(this);
+            return _capitalStrategy.Duration(this);
         }
 
         public double GetUnusedPercentage()

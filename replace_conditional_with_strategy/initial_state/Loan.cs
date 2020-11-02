@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace replace_conditional_with_strategy.initial_state
@@ -13,6 +13,28 @@ namespace replace_conditional_with_strategy.initial_state
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
         private double _riskRating;
+
+        private Loan(double commitment, DateTime? maturity, double riskRating)
+        {
+            _commitment = commitment;
+            _maturity = maturity;
+            _riskRating = riskRating;
+        }
+
+        public static Loan NewTermLoan(double commitment, DateTime maturity, double riskRating)
+        {
+            return new Loan(commitment, maturity, riskRating);
+        }
+
+        public static Loan NewRevolver(double commitment, DateTime maturity, double riskRating)
+        {
+            return new Loan(commitment, maturity, riskRating);
+        }
+
+        public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
+        {
+            return new Loan(commitment, maturity, riskRating);
+        }
 
         public double Capital()
         {
