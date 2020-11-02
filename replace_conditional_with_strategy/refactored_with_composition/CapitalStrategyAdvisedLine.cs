@@ -1,6 +1,6 @@
 namespace replace_conditional_with_strategy.refactored_with_composition
 {
-    public class CapitalStrategyAdvisedLine
+    public class CapitalStrategyAdvisedLine : ICapitalStrategy
     {
         public double Capital(Loan loan)
         {

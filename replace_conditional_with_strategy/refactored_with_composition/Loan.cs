@@ -14,42 +14,38 @@ namespace replace_conditional_with_strategy.refactored_with_composition
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
         private double _riskRating;
+        private readonly ICapitalStrategy _capitalStrategy;
 
-        private Loan(double commitment, DateTime? maturity, double riskRating)
+        private Loan(
+            double commitment,
+            DateTime? maturity,
+            double riskRating,
+            ICapitalStrategy capitalStrategy)
         {
             Commitment = commitment;
             _maturity = maturity;
             _riskRating = riskRating;
+            _capitalStrategy = capitalStrategy;
         }
 
         public static Loan NewTermLoan(double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, maturity, riskRating, new CapitalStrategyTermLoan());
         }
 
         public static Loan NewRevolver(double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, maturity, riskRating, new CapitalStrategyRevolver());
         }
 
         public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, maturity, riskRating, new CapitalStrategyAdvisedLine());
         }
 
         public double Capital()
         {
-            if (_expiry == null && _maturity != null)
-                return new CapitalStrategyTermLoan().Capital(this);
-            if (_expiry != null && _maturity == null)
-            {
-                if (GetUnusedPercentage() != 1.0)
-                    return new CapitalStrategyRevolver().Capital(this);
-                else
-                    return new CapitalStrategyAdvisedLine().Capital(this);
-            }
-
-            return 0.0;
+            return _capitalStrategy.Capital(this);
         }
 
         public double Duration()
