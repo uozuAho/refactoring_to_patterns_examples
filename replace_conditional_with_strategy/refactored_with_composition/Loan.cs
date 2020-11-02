@@ -5,9 +5,10 @@ namespace replace_conditional_with_strategy.refactored_with_composition
 {
     public class Loan
     {
+        public double Commitment;
+
         private DateTime? _expiry;
         private DateTime? _maturity;
-        private double _commitment;
         private double _outstanding;
         private List<Payment> _payments;
         private const int MillisPerDay = 3600 * 24 * 1000;
@@ -16,7 +17,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
 
         private Loan(double commitment, DateTime? maturity, double riskRating)
         {
-            _commitment = commitment;
+            Commitment = commitment;
             _maturity = maturity;
             _riskRating = riskRating;
         }
@@ -39,17 +40,29 @@ namespace replace_conditional_with_strategy.refactored_with_composition
         public double Capital()
         {
             if (_expiry == null && _maturity != null)
-                return _commitment * Duration() * RiskFactor();
+                return new CapitalStrategyTermLoan().Capital(this);
             if (_expiry != null && _maturity == null)
             {
                 if (GetUnusedPercentage() != 1.0)
-                    return _commitment * GetUnusedPercentage() * Duration() * RiskFactor();
+                    return Commitment * GetUnusedPercentage() * Duration() * RiskFactor();
                 else
                     return (OutstandingRiskAmount() * Duration() * RiskFactor())
                            + (UnusedRiskAmount() * Duration() * UnusedRiskFactor());
             }
 
             return 0.0;
+        }
+
+        public double Duration()
+        {
+            if (_expiry == null && _maturity != null) return WeightedAverageDuration();
+            else if (_expiry != null && _maturity == null) return YearsTo(_expiry.Value);
+            return 0.0;
+        }
+
+        public double RiskFactor()
+        {
+            return initial_state.RiskFactor.GetFactors().ForRating(_riskRating);
         }
 
         private double GetUnusedPercentage()
@@ -64,14 +77,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
 
         private double UnusedRiskAmount()
         {
-            return (_commitment - _outstanding);
-        }
-
-        public double Duration()
-        {
-            if (_expiry == null && _maturity != null) return WeightedAverageDuration();
-            else if (_expiry != null && _maturity == null) return YearsTo(_expiry.Value);
-            return 0.0;
+            return (Commitment - _outstanding);
         }
 
         private double WeightedAverageDuration()
@@ -85,7 +91,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
                 weightedAverage += YearsTo(payment.Date()) * payment.Amount();
             }
 
-            if (_commitment != 0.0) duration = weightedAverage / sumOfPayments;
+            if (Commitment != 0.0) duration = weightedAverage / sumOfPayments;
             return duration;
         }
 
@@ -93,11 +99,6 @@ namespace replace_conditional_with_strategy.refactored_with_composition
         {
             var beginDate = DateTime.Now;
             return ((endDate - beginDate).Milliseconds / MillisPerDay) / DaysPerYear;
-        }
-
-        private double RiskFactor()
-        {
-            return initial_state.RiskFactor.GetFactors().ForRating(_riskRating);
         }
 
         private double UnusedRiskFactor()
