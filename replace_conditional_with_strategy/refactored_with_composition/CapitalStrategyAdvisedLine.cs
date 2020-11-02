@@ -2,14 +2,16 @@ namespace replace_conditional_with_strategy.refactored_with_composition
 {
     public class CapitalStrategyAdvisedLine : ICapitalStrategy
     {
+        private readonly LoanCalcs _loanCalcs = new LoanCalcs();
+
         public double Capital(Loan loan)
         {
             return loan.OutstandingRiskAmount()
                    * loan.Duration()
-                   * loan.RiskFactor()
+                   * _loanCalcs.RiskFactor(loan.RiskRating)
                    + loan.UnusedRiskAmount()
                    * loan.Duration()
-                   * loan.UnusedRiskFactor();
+                   * _loanCalcs.UnusedRiskFactor(loan.RiskRating);
         }
     }
 }

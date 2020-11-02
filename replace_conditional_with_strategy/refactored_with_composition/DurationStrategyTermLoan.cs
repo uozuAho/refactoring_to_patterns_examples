@@ -2,6 +2,8 @@ namespace replace_conditional_with_strategy.refactored_with_composition
 {
     public class DurationStrategyTermLoan : IDurationStrategy
     {
+        private readonly LoanCalcs _loanCalcs = new LoanCalcs();
+
         public double Duration(Loan loan)
         {
             return WeightedAverageDuration(loan);
@@ -15,7 +17,7 @@ namespace replace_conditional_with_strategy.refactored_with_composition
             foreach (var payment in loan.Payments)
             {
                 sumOfPayments += payment.Amount();
-                weightedAverage += loan.YearsTo(payment.Date()) * payment.Amount();
+                weightedAverage += _loanCalcs.YearsTo(payment.Date()) * payment.Amount();
             }
 
             if (loan.Commitment != 0.0) duration = weightedAverage / sumOfPayments;
