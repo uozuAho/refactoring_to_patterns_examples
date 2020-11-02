@@ -38,7 +38,7 @@ namespace replace_conditional_with_strategy.refactored
 
         public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating, new CapitalStrategy());
+            return new Loan(commitment, maturity, riskRating, new CapitalStrategyAdvisedLine());
         }
 
         public double Capital()

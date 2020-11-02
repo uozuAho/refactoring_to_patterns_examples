@@ -16,12 +16,7 @@ namespace replace_conditional_with_strategy.refactored
                 if (loan.GetUnusedPercentage() != 1.0)
                     return new CapitalStrategyRevolver().Capital(loan);
                 else
-                    return loan.OutstandingRiskAmount()
-                           * Duration(loan)
-                           * RiskFactor(loan.RiskRating)
-                           + loan.UnusedRiskAmount()
-                           * Duration(loan)
-                           * UnusedRiskFactor(loan.RiskRating);
+                    return new CapitalStrategyAdvisedLine().Capital(loan);
             }
 
             return 0.0;
@@ -37,6 +32,11 @@ namespace replace_conditional_with_strategy.refactored
         protected double RiskFactor(double riskRating)
         {
             return refactored.RiskFactor.GetFactors().ForRating(riskRating);
+        }
+
+        protected double UnusedRiskFactor(double riskRating)
+        {
+            return refactored.UnusedRiskFactor.GetFactors().ForRating(riskRating);
         }
 
         private double WeightedAverageDuration(Loan loan)
@@ -58,11 +58,6 @@ namespace replace_conditional_with_strategy.refactored
         {
             var beginDate = DateTime.Now;
             return ((endDate - beginDate).Milliseconds / MillisPerDay) / DaysPerYear;
-        }
-
-        private double UnusedRiskFactor(double riskRating)
-        {
-            return refactored.UnusedRiskFactor.GetFactors().ForRating(riskRating);
         }
     }
 }
