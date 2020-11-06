@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace replace_embellishment_with_decorator
+namespace replace_embellishment_with_decorator.initial_state
 {
     internal class Parser
     {
