@@ -4,8 +4,9 @@ namespace replace_embellishment_with_decorator.refactored
 {
     internal class Parser
     {
+        public bool ShouldDecodeNodes { get; private set; }
+
         private readonly string _text;
-        private bool _shouldDecodeNodes;
 
         public Parser(string text)
         {
@@ -25,7 +26,7 @@ namespace replace_embellishment_with_decorator.refactored
 
         public void SetNodeDecoding(bool decodeStringNodes)
         {
-            _shouldDecodeNodes = decodeStringNodes;
+            ShouldDecodeNodes = decodeStringNodes;
         }
     }
 }
