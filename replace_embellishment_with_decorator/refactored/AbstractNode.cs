@@ -5,9 +5,11 @@ namespace replace_embellishment_with_decorator.refactored
 {
     internal abstract class AbstractNode : INode
     {
-        public Tag Parent { get; set; }
         public readonly int BeginPosition;
         public readonly int EndPosition;
+
+        public Tag Parent { get; set; }
+        public string Text { get; set; }
 
         protected AbstractNode(int beginPosition, int endPosition)
         {
