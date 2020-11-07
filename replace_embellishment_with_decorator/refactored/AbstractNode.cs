@@ -9,7 +9,7 @@ namespace replace_embellishment_with_decorator.refactored
         public readonly int EndPosition;
 
         public Tag Parent { get; set; }
-        public string Text { get; set; }
+        public virtual string Text { get; set; }
 
         protected AbstractNode(int beginPosition, int endPosition)
         {
