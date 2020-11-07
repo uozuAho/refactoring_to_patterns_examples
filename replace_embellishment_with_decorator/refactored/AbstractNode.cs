@@ -8,6 +8,8 @@ namespace replace_embellishment_with_decorator.refactored
         public readonly int BeginPosition;
         public readonly int EndPosition;
 
+        protected string TextBuffer;
+
         public Tag Parent { get; set; }
         public virtual string Text { get; set; }
 

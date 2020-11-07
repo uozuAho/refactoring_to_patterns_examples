@@ -6,7 +6,6 @@ namespace replace_embellishment_with_decorator.refactored
 
         protected bool ShouldDecodeNodes { get; set; }
 
-        private readonly string _textBuffer;
         private readonly bool _shouldRemoveEscapeCharacters;
 
         public StringNode(int beginPosition, int endPosition) : base(beginPosition, endPosition)
@@ -16,7 +15,7 @@ namespace replace_embellishment_with_decorator.refactored
         public StringNode(string textBuffer, int beginPosition, int endPosition)
             : base(beginPosition, endPosition)
         {
-            _textBuffer = textBuffer;
+            TextBuffer = textBuffer;
         }
 
         public static StringNode CreateStringNode(
@@ -32,10 +31,10 @@ namespace replace_embellishment_with_decorator.refactored
 
         public override string ToPlainTextString()
         {
-            var result = _textBuffer;
+            var result = TextBuffer;
 
             if (ShouldDecodeNodes)
-                result = Translate.Decode(_textBuffer);
+                result = Translate.Decode(TextBuffer);
             if (_shouldRemoveEscapeCharacters)
                 result = ParserUtils.RemoveEscapeCharacters(result);
 

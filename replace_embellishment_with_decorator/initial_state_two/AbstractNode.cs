@@ -9,6 +9,8 @@ namespace replace_embellishment_with_decorator.initial_state_two
         public readonly int BeginPosition;
         public readonly int EndPosition;
 
+        protected string TextBuffer;
+
         protected AbstractNode(int beginPosition, int endPosition)
         {
             BeginPosition = beginPosition;

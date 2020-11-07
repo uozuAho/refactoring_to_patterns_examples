@@ -4,7 +4,6 @@ namespace replace_embellishment_with_decorator.initial_state_two
     {
         public string Text { get; set; }
 
-        private readonly string _textBuffer;
         private readonly bool _shouldDecodeNodes;
         private readonly bool _shouldRemoveEscapeCharacters;
 
@@ -15,7 +14,7 @@ namespace replace_embellishment_with_decorator.initial_state_two
         public StringNode(string textBuffer, int beginPosition, int endPosition)
             : base(beginPosition, endPosition)
         {
-            _textBuffer = textBuffer;
+            TextBuffer = textBuffer;
         }
 
         public StringNode(
@@ -25,17 +24,17 @@ namespace replace_embellishment_with_decorator.initial_state_two
             bool shouldDecodeNodes,
             bool shouldRemoveEscapeCharacters) : base(beginPosition, endPosition)
         {
-            _textBuffer = textBuffer;
+            TextBuffer = textBuffer;
             _shouldDecodeNodes = shouldDecodeNodes;
             _shouldRemoveEscapeCharacters = shouldRemoveEscapeCharacters;
         }
 
         public override string ToPlainTextString()
         {
-            var result = _textBuffer;
+            var result = TextBuffer;
 
             if (_shouldDecodeNodes)
-                result = Translate.Decode(_textBuffer);
+                result = Translate.Decode(TextBuffer);
             if (_shouldRemoveEscapeCharacters)
                 result = ParserUtils.RemoveEscapeCharacters(result);
 
