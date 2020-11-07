@@ -17,7 +17,7 @@ namespace replace_embellishment_with_decorator.refactored
         public INode Find(NodeReader reader, string input, int position, bool balanceQuotes)
         {
             var textBuffer = input;
-            return new StringNode(
+            return StringNode.CreateStringNode(
                 textBuffer,
                 0,
                 input.Length,

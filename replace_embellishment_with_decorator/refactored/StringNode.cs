@@ -1,3 +1,5 @@
+using System;
+
 namespace replace_embellishment_with_decorator.refactored
 {
     internal class StringNode : AbstractNode
@@ -22,6 +24,20 @@ namespace replace_embellishment_with_decorator.refactored
             _textBuffer = textBuffer;
             _shouldDecodeNodes = shouldDecodeNodes;
             _shouldRemoveEscapeCharacters = shouldRemoveEscapeCharacters;
+        }
+
+        public static StringNode CreateStringNode(
+            string textBuffer,
+            int beginPosition,
+            int endPosition,
+            bool shouldDecode,
+            bool shouldRemoveEscapeCharacters)
+        {
+            return new StringNode(textBuffer,
+                beginPosition,
+                endPosition,
+                shouldDecode,
+                shouldRemoveEscapeCharacters);
         }
 
         public override string ToPlainTextString()
