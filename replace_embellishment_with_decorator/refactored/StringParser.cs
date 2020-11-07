@@ -8,13 +8,13 @@ namespace replace_embellishment_with_decorator.refactored
         {
         }
 
-        public override IEnumerable<Node> Elements()
+        public override IEnumerable<INode> Elements()
         {
             yield return new StringNode(1, 2);
             yield return new StringNode(1, 2);
         }
 
-        public Node Find(NodeReader reader, string input, int position, bool balanceQuotes)
+        public INode Find(NodeReader reader, string input, int position, bool balanceQuotes)
         {
             var textBuffer = input;
             return new StringNode(

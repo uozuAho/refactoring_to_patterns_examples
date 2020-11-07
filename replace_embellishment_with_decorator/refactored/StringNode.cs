@@ -1,6 +1,6 @@
 namespace replace_embellishment_with_decorator.refactored
 {
-    internal class StringNode : Node
+    internal class StringNode : AbstractNode
     {
         private readonly string _textBuffer;
         private readonly bool _shouldDecodeNodes;
@@ -32,6 +32,11 @@ namespace replace_embellishment_with_decorator.refactored
                 result = ParserUtils.RemoveEscapeCharacters(result);
 
             return result;
+        }
+
+        public override string ToHtml()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

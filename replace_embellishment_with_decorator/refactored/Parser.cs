@@ -14,10 +14,10 @@ namespace replace_embellishment_with_decorator.refactored
             _text = text;
         }
 
-        public virtual IEnumerable<Node> Elements()
+        public virtual IEnumerable<INode> Elements()
         {
-            yield return new Node(0, 0);
-            yield return new Node(0, 0);
+            yield return new StringNode(0, 0);
+            yield return new StringNode(0, 0);
         }
 
         public static StringParser CreateParser(string text)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace replace_embellishment_with_decorator.refactored
 {
-    internal abstract class AbstractNode
+    internal abstract class AbstractNode : INode
     {
         public Tag Parent { get; set; }
         public readonly int BeginPosition;
@@ -18,11 +18,11 @@ namespace replace_embellishment_with_decorator.refactored
         public abstract string ToPlainTextString();
         public abstract string ToHtml();
 
-        public void CollectInto(List<Node> nodes, string filter)
+        public void CollectInto(List<INode> nodes, string filter)
         {
         }
 
-        public void CollectInto(List<Node> nodes, Type nodeType)
+        public void CollectInto(List<INode> nodes, Type nodeType)
         {
         }
 
