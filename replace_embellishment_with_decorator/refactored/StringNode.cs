@@ -3,30 +3,26 @@ namespace replace_embellishment_with_decorator.refactored
     internal class StringNode : Node
     {
         private readonly string _textBuffer;
-        private int _start;
-        private int _end;
         private readonly bool _shouldDecodeNodes;
         private readonly bool _shouldRemoveEscapeCharacters;
 
-        public StringNode()
+        public StringNode(int beginPosition, int endPosition) : base(beginPosition, endPosition)
         {
         }
 
         public StringNode(
             string textBuffer,
-            int start,
-            int end,
+            int beginPosition,
+            int endPosition,
             bool shouldDecodeNodes,
-            bool shouldRemoveEscapeCharacters)
+            bool shouldRemoveEscapeCharacters) : base(beginPosition, endPosition)
         {
             _textBuffer = textBuffer;
-            _start = start;
-            _end = end;
             _shouldDecodeNodes = shouldDecodeNodes;
             _shouldRemoveEscapeCharacters = shouldRemoveEscapeCharacters;
         }
 
-        public string ToPlainTextString()
+        public override string ToPlainTextString()
         {
             var result = _textBuffer;
 

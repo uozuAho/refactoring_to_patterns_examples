@@ -16,8 +16,8 @@ namespace replace_embellishment_with_decorator.refactored
 
         public virtual IEnumerable<Node> Elements()
         {
-            yield return new Node();
-            yield return new Node();
+            yield return new Node(0, 0);
+            yield return new Node(0, 0);
         }
 
         public static StringParser CreateParser(string text)
