@@ -4,8 +4,6 @@ namespace replace_embellishment_with_decorator.refactored
     {
         public override string Text { get; set; }
 
-        protected bool ShouldDecodeNodes { get; set; }
-
         private readonly bool _shouldRemoveEscapeCharacters;
 
         public StringNode(int beginPosition, int endPosition) : base(beginPosition, endPosition)
@@ -31,14 +29,7 @@ namespace replace_embellishment_with_decorator.refactored
 
         public override string ToPlainTextString()
         {
-            var result = TextBuffer;
-
-            if (ShouldDecodeNodes)
-                result = Translate.Decode(TextBuffer);
-            if (_shouldRemoveEscapeCharacters)
-                result = ParserUtils.RemoveEscapeCharacters(result);
-
-            return result;
+            return TextBuffer;
         }
 
         public override string ToHtml()

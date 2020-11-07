@@ -5,7 +5,6 @@ namespace replace_embellishment_with_decorator.refactored
         public DecodingNode(int beginPosition, int endPosition)
             : base(beginPosition, endPosition)
         {
-            ShouldDecodeNodes = true;
         }
 
         public DecodingNode(
@@ -17,7 +16,11 @@ namespace replace_embellishment_with_decorator.refactored
                 beginPosition,
                 endPosition)
         {
-            ShouldDecodeNodes = true;
+        }
+
+        public override string ToPlainTextString()
+        {
+            return Translate.Decode(TextBuffer);
         }
     }
 }
