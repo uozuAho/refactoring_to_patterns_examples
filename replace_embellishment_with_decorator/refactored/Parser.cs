@@ -5,6 +5,7 @@ namespace replace_embellishment_with_decorator.refactored
     internal class Parser
     {
         public bool ShouldDecodeNodes { get; private set; }
+        public bool ShouldRemoveEscapeCharacters { get; private set; }
 
         private readonly string _text;
 
@@ -24,9 +25,14 @@ namespace replace_embellishment_with_decorator.refactored
             return new StringParser(text);
         }
 
-        public void SetNodeDecoding(bool decodeStringNodes)
+        public void SetNodeDecoding(bool should)
         {
-            ShouldDecodeNodes = decodeStringNodes;
+            ShouldDecodeNodes = should;
+        }
+
+        public void SetRemoveEscapeCharacters(bool should)
+        {
+            ShouldRemoveEscapeCharacters = should;
         }
     }
 }

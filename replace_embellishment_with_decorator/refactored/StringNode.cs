@@ -6,24 +6,36 @@ namespace replace_embellishment_with_decorator.refactored
         private int _start;
         private int _end;
         private readonly bool _shouldDecodeNodes;
+        private readonly bool _shouldRemoveEscapeCharacters;
 
         public StringNode()
         {
         }
 
-        public StringNode(string textBuffer, int start, int end, bool shouldDecodeNodes)
+        public StringNode(
+            string textBuffer,
+            int start,
+            int end,
+            bool shouldDecodeNodes,
+            bool shouldRemoveEscapeCharacters)
         {
             _textBuffer = textBuffer;
             _start = start;
             _end = end;
             _shouldDecodeNodes = shouldDecodeNodes;
+            _shouldRemoveEscapeCharacters = shouldRemoveEscapeCharacters;
         }
 
         public string ToPlainTextString()
         {
-            return _shouldDecodeNodes
-                ? Translate.Decode(_textBuffer)
-                : _textBuffer;
+            var result = _textBuffer;
+
+            if (_shouldDecodeNodes)
+                result = Translate.Decode(_textBuffer);
+            if (_shouldRemoveEscapeCharacters)
+                result = ParserUtils.RemoveEscapeCharacters(result);
+
+            return result;
         }
     }
 }

@@ -17,7 +17,12 @@ namespace replace_embellishment_with_decorator.refactored
         public Node Find(NodeReader reader, string input, int position, bool balanceQuotes)
         {
             var textBuffer = input;
-            return new StringNode(textBuffer, 0, input.Length, reader.Parser.ShouldDecodeNodes);
+            return new StringNode(
+                textBuffer,
+                0,
+                input.Length,
+                reader.Parser.ShouldDecodeNodes,
+                reader.Parser.ShouldRemoveEscapeCharacters);
         }
     }
 }
