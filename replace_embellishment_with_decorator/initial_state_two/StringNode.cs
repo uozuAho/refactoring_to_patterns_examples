@@ -2,6 +2,8 @@ namespace replace_embellishment_with_decorator.initial_state_two
 {
     internal class StringNode : AbstractNode
     {
+        public string Text { get; set; }
+
         private readonly string _textBuffer;
         private readonly bool _shouldDecodeNodes;
         private readonly bool _shouldRemoveEscapeCharacters;
