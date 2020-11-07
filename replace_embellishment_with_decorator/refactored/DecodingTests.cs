@@ -10,31 +10,19 @@ namespace replace_embellishment_with_decorator.refactored
             const string encodedWorkshopTitle = "The Testing &amp; Refactoring Workshop";
             const string decodedWorkshopTitle = "The Testing & Refactoring Workshop";
 
-            AssertEquals("ampersand in string",
-                decodedWorkshopTitle,
-                ParseToObtainDecodedResult(encodedWorkshopTitle));
-        }
+            var parser = Parser.CreateParser(encodedWorkshopTitle);
+            parser.SetNodeDecoding(true);
 
-        private string ParseToObtainDecodedResult(string stringToDecode)
-        {
             var decodedContent = new StringBuilder();
-            var parser = CreateParser(stringToDecode);
-            var nodes = parser.Elements();
-            foreach (var node in nodes)
+            foreach (var node in parser.Elements())
             {
                 if (node is StringNode stringNode)
-                {
-                    decodedContent.Append(Translate.Decode(stringNode.ToPlainTextString()));
-                }
-                if (node is Tag)
-                    decodedContent.Append(node.toHtml());
+                    decodedContent.Append(stringNode.ToPlainTextString());
             }
-            return decodedContent.ToString();
-        }
 
-        private static Parser CreateParser(string stringToDecode)
-        {
-            return new Parser(stringToDecode);
+            AssertEquals("decoded content",
+                decodedWorkshopTitle,
+                decodedContent.ToString());
         }
 
         private static void AssertEquals(string msg, string expected, string actual)
