@@ -1,5 +1,3 @@
-using System;
-
 namespace replace_embellishment_with_decorator.refactored
 {
     internal class StringNode : AbstractNode
@@ -12,6 +10,12 @@ namespace replace_embellishment_with_decorator.refactored
 
         public StringNode(int beginPosition, int endPosition) : base(beginPosition, endPosition)
         {
+        }
+
+        public StringNode(string textBuffer, int beginPosition, int endPosition)
+            : base(beginPosition, endPosition)
+        {
+            _textBuffer = textBuffer;
         }
 
         public StringNode(

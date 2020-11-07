@@ -12,6 +12,12 @@ namespace replace_embellishment_with_decorator.initial_state_two
         {
         }
 
+        public StringNode(string textBuffer, int beginPosition, int endPosition)
+            : base(beginPosition, endPosition)
+        {
+            _textBuffer = textBuffer;
+        }
+
         public StringNode(
             string textBuffer,
             int beginPosition,
