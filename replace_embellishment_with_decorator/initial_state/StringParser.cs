@@ -21,8 +21,7 @@ namespace replace_embellishment_with_decorator.initial_state
                 textBuffer,
                 0,
                 input.Length,
-                reader.Parser.ShouldDecodeNodes,
-                reader.Parser.ShouldRemoveEscapeCharacters);
+                reader.Parser.ShouldDecodeNodes);
         }
     }
 }

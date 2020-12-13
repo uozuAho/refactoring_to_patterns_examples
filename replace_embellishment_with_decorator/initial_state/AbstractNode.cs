@@ -5,9 +5,10 @@ namespace replace_embellishment_with_decorator.initial_state
 {
     internal abstract class AbstractNode : INode
     {
-        public Tag Parent { get; set; }
         public readonly int BeginPosition;
         public readonly int EndPosition;
+
+        public Tag Parent { get; set; }
 
         protected string TextBuffer;
 
