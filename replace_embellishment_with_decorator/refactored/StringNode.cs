@@ -4,8 +4,6 @@ namespace replace_embellishment_with_decorator.refactored
     {
         public override string Text { get; set; }
 
-        private readonly bool _shouldRemoveEscapeCharacters;
-
         public StringNode(int beginPosition, int endPosition) : base(beginPosition, endPosition)
         {
         }
@@ -16,15 +14,15 @@ namespace replace_embellishment_with_decorator.refactored
             TextBuffer = textBuffer;
         }
 
-        public static StringNode CreateStringNode(
+        public static INode CreateStringNode(
             string textBuffer,
             int beginPosition,
             int endPosition,
             bool shouldDecode)
         {
-            return shouldDecode
-                ? new DecodingNode(textBuffer, beginPosition, endPosition)
-                : new StringNode(textBuffer, beginPosition, endPosition);
+            if (shouldDecode)
+                return new DecodingNode(textBuffer, beginPosition, endPosition);
+            return new StringNode(textBuffer, beginPosition, endPosition);
         }
 
         public override string ToPlainTextString()
