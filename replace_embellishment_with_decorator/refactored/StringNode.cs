@@ -20,9 +20,11 @@ namespace replace_embellishment_with_decorator.refactored
             int endPosition,
             bool shouldDecode)
         {
+            var stringNode = new StringNode(textBuffer, beginPosition, endPosition);
+
             if (shouldDecode)
-                return new DecodingNode(textBuffer, beginPosition, endPosition);
-            return new StringNode(textBuffer, beginPosition, endPosition);
+                return new DecodingNode(stringNode);
+            return stringNode;
         }
 
         public override string ToPlainTextString()
