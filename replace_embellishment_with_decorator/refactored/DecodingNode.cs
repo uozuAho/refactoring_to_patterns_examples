@@ -20,7 +20,7 @@ namespace replace_embellishment_with_decorator.refactored
 
         public override string ToPlainTextString()
         {
-            return Translate.Decode(TextBuffer);
+            return Translate.Decode(base.ToPlainTextString());
         }
     }
 }
