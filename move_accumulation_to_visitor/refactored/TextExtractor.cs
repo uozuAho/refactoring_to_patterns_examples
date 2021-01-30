@@ -9,22 +9,26 @@ namespace move_accumulation_to_visitor.refactored
         private readonly bool _replaceNonBreakingSpace = false;
         private readonly bool _collapse = false;
         private readonly bool _getLinks = false;
+        private bool _isPreTag;
+        private bool _isScriptTag;
+        private StringBuilder _results;
 
         public string ExtractText()
         {
-            var isPreTag = false;
-            var isScriptTag = false;
-            var results = new StringBuilder();
+            _isPreTag = false;
+            _isScriptTag = false;
+            _results = new StringBuilder();
             _parser.FlushScanners();
             _parser.RegisterScanners();
+
             foreach (var node in _parser.Elements())
             {
                 if (node is StringNode stringNode)
                 {
-                    if (!isScriptTag)
+                    if (!_isScriptTag)
                     {
-                        if (isPreTag)
-                            results.Append(stringNode.GetText());
+                        if (_isPreTag)
+                            _results.Append(stringNode.GetText());
                         else
                         {
                             var text = Translate.Decode(stringNode.GetText());
@@ -33,43 +37,43 @@ namespace move_accumulation_to_visitor.refactored
                                 text = text.Replace("\a0", " ");
                             
                             if (_collapse)
-                                Collapse(results, text);
-                            else results.Append(text);
+                                Collapse(_results, text);
+                            else _results.Append(text);
                         }
                     }
                 }
                 else if (node is LinkTag link)
                 {
-                    if (isPreTag)
-                        results.Append(link.GetLinkText());
+                    if (_isPreTag)
+                        _results.Append(link.GetLinkText());
                     else
-                        Collapse(results, Translate.Decode(link.GetLinkText()));
+                        Collapse(_results, Translate.Decode(link.GetLinkText()));
                     
                     if (_getLinks)
                     {
-                        results.Append("<");
-                        results.Append(link.GetLink());
-                        results.Append(">");
+                        _results.Append("<");
+                        _results.Append(link.GetLink());
+                        _results.Append(">");
                     }
                 }
                 else if (node is EndTag endTag)
                 {
                     var tagName = endTag.GetTagName();
                     if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
-                        isPreTag = false;
+                        _isPreTag = false;
                     else if (tagName.Equals("SCRIPT", StringComparison.InvariantCultureIgnoreCase))
-                        isScriptTag = false;
+                        _isScriptTag = false;
                 }
                 else if (node is Tag tag)
                 {
                     var tagName = tag.GetTagName();
                     if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
-                        isPreTag = true;
+                        _isPreTag = true;
                     else if (tagName.Equals("SCRIPT", StringComparison.InvariantCultureIgnoreCase))
-                        isScriptTag = true;
+                        _isScriptTag = true;
                 }
             }
-            return results.ToString();
+            return _results.ToString();
         }
 
         private static void Collapse(StringBuilder results, string text)
