@@ -7,9 +7,9 @@ namespace move_accumulation_to_visitor.refactored
             return "";
         }
 
-        public override void Accept(TextExtractor textExtractor)
+        public override void Accept(INodeVisitor visitor)
         {
-            textExtractor.VisitStringNode(this);
+            visitor.VisitStringNode(this);
         }
     }
 }

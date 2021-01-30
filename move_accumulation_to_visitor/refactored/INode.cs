@@ -1,7 +1,7 @@
-﻿namespace move_accumulation_to_visitor.refactored
+namespace move_accumulation_to_visitor.refactored
 {
     public interface INode
     {
-        void Accept(TextExtractor textExtractor);
+        void Accept(INodeVisitor visitor);
     }
 }

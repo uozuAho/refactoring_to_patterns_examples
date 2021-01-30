@@ -3,7 +3,7 @@ using System.Text;
 
 namespace move_accumulation_to_visitor.refactored
 {
-    public class TextExtractor
+    public class TextExtractor : INodeVisitor
     {
         private readonly Parser _parser = new Parser();
         private readonly bool _replaceNonBreakingSpace = false;

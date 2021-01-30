@@ -14,9 +14,9 @@ namespace move_accumulation_to_visitor.refactored
             throw new NotImplementedException();
         }
 
-        public override void Accept(TextExtractor textExtractor)
+        public override void Accept(INodeVisitor visitor)
         {
-            textExtractor.VisitLinkTag(this);
+            visitor.VisitLinkTag(this);
         }
     }
 }
