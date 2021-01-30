@@ -45,6 +45,11 @@ namespace move_accumulation_to_visitor.refactored
 
         private void Accept(StringNode stringNode)
         {
+            VisitStringNode(stringNode);
+        }
+
+        private void VisitStringNode(StringNode stringNode)
+        {
             if (!_isScriptTag)
             {
                 if (_isPreTag)
@@ -65,6 +70,11 @@ namespace move_accumulation_to_visitor.refactored
 
         private void Accept(LinkTag link)
         {
+            VisitLinkTag(link);
+        }
+
+        private void VisitLinkTag(LinkTag link)
+        {
             if (_isPreTag)
                 _results.Append(link.GetLinkText());
             else
@@ -80,6 +90,11 @@ namespace move_accumulation_to_visitor.refactored
 
         private void Accept(EndTag endTag)
         {
+            VisitEndTag(endTag);
+        }
+
+        private void VisitEndTag(EndTag endTag)
+        {
             var tagName = endTag.GetTagName();
             if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
                 _isPreTag = false;
@@ -88,6 +103,11 @@ namespace move_accumulation_to_visitor.refactored
         }
 
         private void Accept(Tag tag)
+        {
+            VisitTag(tag);
+        }
+
+        private void VisitTag(Tag tag)
         {
             var tagName = tag.GetTagName();
             if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
