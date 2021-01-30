@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "replace_conditional_with_st
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "replace_embellishment_with_decorator", "replace_embellishment_with_decorator\replace_embellishment_with_decorator.csproj", "{94FC2B84-5BBD-4B60-BB2A-124D25023909}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "move_accumulation_to_visitor", "move_accumulation_to_visitor\move_accumulation_to_visitor.csproj", "{FA3D3261-3F54-4267-9E3F-0EED4C2916C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{94FC2B84-5BBD-4B60-BB2A-124D25023909}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94FC2B84-5BBD-4B60-BB2A-124D25023909}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94FC2B84-5BBD-4B60-BB2A-124D25023909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA3D3261-3F54-4267-9E3F-0EED4C2916C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA3D3261-3F54-4267-9E3F-0EED4C2916C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA3D3261-3F54-4267-9E3F-0EED4C2916C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA3D3261-3F54-4267-9E3F-0EED4C2916C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
