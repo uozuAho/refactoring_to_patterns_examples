@@ -25,55 +25,75 @@ namespace move_accumulation_to_visitor.refactored
             {
                 if (node is StringNode stringNode)
                 {
-                    if (!_isScriptTag)
-                    {
-                        if (_isPreTag)
-                            _results.Append(stringNode.GetText());
-                        else
-                        {
-                            var text = Translate.Decode(stringNode.GetText());
-                            
-                            if (_replaceNonBreakingSpace)
-                                text = text.Replace("\a0", " ");
-                            
-                            if (_collapse)
-                                Collapse(_results, text);
-                            else _results.Append(text);
-                        }
-                    }
+                    Accept(stringNode);
                 }
                 else if (node is LinkTag link)
                 {
-                    if (_isPreTag)
-                        _results.Append(link.GetLinkText());
-                    else
-                        Collapse(_results, Translate.Decode(link.GetLinkText()));
-                    
-                    if (_getLinks)
-                    {
-                        _results.Append("<");
-                        _results.Append(link.GetLink());
-                        _results.Append(">");
-                    }
+                    Accept(link);
                 }
                 else if (node is EndTag endTag)
                 {
-                    var tagName = endTag.GetTagName();
-                    if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
-                        _isPreTag = false;
-                    else if (tagName.Equals("SCRIPT", StringComparison.InvariantCultureIgnoreCase))
-                        _isScriptTag = false;
+                    Accept(endTag);
                 }
                 else if (node is Tag tag)
                 {
-                    var tagName = tag.GetTagName();
-                    if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
-                        _isPreTag = true;
-                    else if (tagName.Equals("SCRIPT", StringComparison.InvariantCultureIgnoreCase))
-                        _isScriptTag = true;
+                    Accept(tag);
                 }
             }
             return _results.ToString();
+        }
+
+        private void Accept(StringNode stringNode)
+        {
+            if (!_isScriptTag)
+            {
+                if (_isPreTag)
+                    _results.Append(stringNode.GetText());
+                else
+                {
+                    var text = Translate.Decode(stringNode.GetText());
+
+                    if (_replaceNonBreakingSpace)
+                        text = text.Replace("\a0", " ");
+
+                    if (_collapse)
+                        Collapse(_results, text);
+                    else _results.Append(text);
+                }
+            }
+        }
+
+        private void Accept(LinkTag link)
+        {
+            if (_isPreTag)
+                _results.Append(link.GetLinkText());
+            else
+                Collapse(_results, Translate.Decode(link.GetLinkText()));
+
+            if (_getLinks)
+            {
+                _results.Append("<");
+                _results.Append(link.GetLink());
+                _results.Append(">");
+            }
+        }
+
+        private void Accept(EndTag endTag)
+        {
+            var tagName = endTag.GetTagName();
+            if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
+                _isPreTag = false;
+            else if (tagName.Equals("SCRIPT", StringComparison.InvariantCultureIgnoreCase))
+                _isScriptTag = false;
+        }
+
+        private void Accept(Tag tag)
+        {
+            var tagName = tag.GetTagName();
+            if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
+                _isPreTag = true;
+            else if (tagName.Equals("SCRIPT", StringComparison.InvariantCultureIgnoreCase))
+                _isScriptTag = true;
         }
 
         private static void Collapse(StringBuilder results, string text)
