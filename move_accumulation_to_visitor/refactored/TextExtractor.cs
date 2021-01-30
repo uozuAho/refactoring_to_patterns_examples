@@ -25,19 +25,19 @@ namespace move_accumulation_to_visitor.refactored
             {
                 if (node is StringNode stringNode)
                 {
-                    VisitStringNode(stringNode);
+                    stringNode.Accept(this);
                 }
                 else if (node is LinkTag link)
                 {
-                    VisitLinkTag(link);
+                    link.Accept(this);
                 }
                 else if (node is EndTag endTag)
                 {
-                    VisitEndTag(endTag);
+                    endTag.Accept(this);
                 }
                 else if (node is Tag tag)
                 {
-                    VisitTag(tag);
+                    tag.Accept(this);
                 }
             }
             return _results.ToString();
