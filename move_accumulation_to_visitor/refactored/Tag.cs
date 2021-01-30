@@ -2,14 +2,14 @@ using System;
 
 namespace move_accumulation_to_visitor.refactored
 {
-    public class Tag : Node
+    public class Tag : AbstractNode
     {
         public string GetTagName()
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Accept(TextExtractor textExtractor)
+        public override void Accept(TextExtractor textExtractor)
         {
             textExtractor.VisitTag(this);
         }

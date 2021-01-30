@@ -15,7 +15,7 @@ namespace move_accumulation_to_visitor.refactored
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Node> Elements()
+        public IEnumerable<INode> Elements()
         {
             throw new NotImplementedException();
         }

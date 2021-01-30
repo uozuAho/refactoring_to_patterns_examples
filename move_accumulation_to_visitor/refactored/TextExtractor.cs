@@ -23,22 +23,7 @@ namespace move_accumulation_to_visitor.refactored
 
             foreach (var node in _parser.Elements())
             {
-                if (node is StringNode stringNode)
-                {
-                    stringNode.Accept(this);
-                }
-                else if (node is LinkTag link)
-                {
-                    link.Accept(this);
-                }
-                else if (node is EndTag endTag)
-                {
-                    endTag.Accept(this);
-                }
-                else if (node is Tag tag)
-                {
-                    tag.Accept(this);
-                }
+                node.Accept(this);
             }
             return _results.ToString();
         }
