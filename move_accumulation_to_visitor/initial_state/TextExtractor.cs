@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 
-namespace move_accumulation_to_visitor
+namespace move_accumulation_to_visitor.initial_state
 {
     public class TextExtractor
     {
@@ -16,19 +15,19 @@ namespace move_accumulation_to_visitor
             var isPreTag = false;
             var isScriptTag = false;
             var results = new StringBuilder();
-            _parser.flushScanners();
-            _parser.registerScanners();
-            foreach (var node in _parser.elements())
+            _parser.FlushScanners();
+            _parser.RegisterScanners();
+            foreach (var node in _parser.Elements())
             {
                 if (node is StringNode stringNode)
                 {
                     if (!isScriptTag)
                     {
                         if (isPreTag)
-                            results.Append(stringNode.getText());
+                            results.Append(stringNode.GetText());
                         else
                         {
-                            var text = Translate.decode(stringNode.getText());
+                            var text = Translate.Decode(stringNode.GetText());
                             
                             if (_replaceNonBreakingSpace)
                                 text = text.Replace("\a0", " ");
@@ -44,7 +43,7 @@ namespace move_accumulation_to_visitor
                     if (isPreTag)
                         results.Append(link.GetLinkText());
                     else
-                        Collapse(results, Translate.decode(link.GetLinkText()));
+                        Collapse(results, Translate.Decode(link.GetLinkText()));
                     
                     if (_getLinks)
                     {
@@ -77,68 +76,5 @@ namespace move_accumulation_to_visitor
         {
             throw new NotImplementedException();
         }
-    }
-
-    public class Translate
-    {
-        public static string decode(string text)
-        {
-            return text;
-        }
-    }
-
-    public class Parser
-    {
-        public void flushScanners()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void registerScanners()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Node> elements()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class Node
-    {
-    }
-
-    public class StringNode : Node
-    {
-        public string getText()
-        {
-            return "";
-        }
-    }
-
-    public class Tag : Node
-    {
-        public string GetTagName()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class LinkTag : Tag
-    {
-        public string GetLinkText()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetLink()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class EndTag : Tag
-    {
     }
 }
