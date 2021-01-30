@@ -25,30 +25,25 @@ namespace move_accumulation_to_visitor.refactored
             {
                 if (node is StringNode stringNode)
                 {
-                    Accept(stringNode);
+                    stringNode.Accept(this);
                 }
                 else if (node is LinkTag link)
                 {
-                    Accept(link);
+                    link.Accept(this);
                 }
                 else if (node is EndTag endTag)
                 {
-                    Accept(endTag);
+                    endTag.Accept(this);
                 }
                 else if (node is Tag tag)
                 {
-                    Accept(tag);
+                    tag.Accept(this);
                 }
             }
             return _results.ToString();
         }
 
-        private void Accept(StringNode stringNode)
-        {
-            VisitStringNode(stringNode);
-        }
-
-        private void VisitStringNode(StringNode stringNode)
+        public void VisitStringNode(StringNode stringNode)
         {
             if (!_isScriptTag)
             {
@@ -68,12 +63,7 @@ namespace move_accumulation_to_visitor.refactored
             }
         }
 
-        private void Accept(LinkTag link)
-        {
-            VisitLinkTag(link);
-        }
-
-        private void VisitLinkTag(LinkTag link)
+        public void VisitLinkTag(LinkTag link)
         {
             if (_isPreTag)
                 _results.Append(link.GetLinkText());
@@ -88,12 +78,7 @@ namespace move_accumulation_to_visitor.refactored
             }
         }
 
-        private void Accept(EndTag endTag)
-        {
-            VisitEndTag(endTag);
-        }
-
-        private void VisitEndTag(EndTag endTag)
+        public void VisitEndTag(EndTag endTag)
         {
             var tagName = endTag.GetTagName();
             if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))
@@ -102,12 +87,7 @@ namespace move_accumulation_to_visitor.refactored
                 _isScriptTag = false;
         }
 
-        private void Accept(Tag tag)
-        {
-            VisitTag(tag);
-        }
-
-        private void VisitTag(Tag tag)
+        public void VisitTag(Tag tag)
         {
             var tagName = tag.GetTagName();
             if (tagName.Equals("PRE", StringComparison.InvariantCultureIgnoreCase))

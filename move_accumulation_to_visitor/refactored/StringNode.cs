@@ -6,5 +6,10 @@ namespace move_accumulation_to_visitor.refactored
         {
             return "";
         }
+
+        public void Accept(TextExtractor textExtractor)
+        {
+            textExtractor.VisitStringNode(this);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace move_accumulation_to_visitor.refactored
 {
@@ -12,6 +12,11 @@ namespace move_accumulation_to_visitor.refactored
         public string GetLink()
         {
             throw new NotImplementedException();
+        }
+
+        public override void Accept(TextExtractor textExtractor)
+        {
+            textExtractor.VisitLinkTag(this);
         }
     }
 }
