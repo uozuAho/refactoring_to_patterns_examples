@@ -9,7 +9,7 @@ namespace replace_conditional_with_strategy.initial_state
         private DateTime? _maturity;
         private double _commitment;
         private double _outstanding;
-        private List<Payment> _payments;
+        private List<Payment> _payments = new List<Payment>();
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
         private double _riskRating;
