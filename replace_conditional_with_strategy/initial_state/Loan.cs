@@ -52,6 +52,11 @@ namespace replace_conditional_with_strategy.initial_state
             return 0.0;
         }
 
+        public void AddPayment(double amount)
+        {
+            _payments.Add(new Payment(amount));
+        }
+
         private double GetUnusedPercentage()
         {
             return 23;
