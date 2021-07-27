@@ -52,9 +52,9 @@ namespace replace_conditional_with_strategy.initial_state
             return 0.0;
         }
 
-        public void AddPayment(double amount)
+        public void AddPayment(double amount, DateTime date)
         {
-            _payments.Add(new Payment(amount));
+            _payments.Add(new Payment(amount, date));
         }
 
         private double GetUnusedPercentage()
@@ -97,7 +97,8 @@ namespace replace_conditional_with_strategy.initial_state
         private double YearsTo(DateTime endDate)
         {
             var beginDate = DateTime.Now;
-            return ((endDate - beginDate).Milliseconds / MillisPerDay) / DaysPerYear;
+            var years = (endDate - beginDate).TotalDays / DaysPerYear;
+            return years;
         }
 
         private double RiskFactor()
