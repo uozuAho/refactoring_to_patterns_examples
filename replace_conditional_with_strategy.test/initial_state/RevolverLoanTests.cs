@@ -27,7 +27,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var commitment = 100;
             var riskRating = 10;
             var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewTermLoan(commitment, maturity, riskRating);
+            var loan = Loan.NewRevolver(commitment, maturity, riskRating);
             loan.AddPayment(10, currentDate.AddYears(2));
 
             Assert.Equal(810.14, loan.Capital(), AssertToDecimalPlaces);
@@ -45,7 +45,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var commitment = 100;
             var riskRating = 10;
             var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewTermLoan(commitment, maturity, riskRating);
+            var loan = Loan.NewRevolver(commitment, maturity, riskRating);
             loan.AddPayment(10, currentDate.AddYears(2));
 
             // warning: I have no idea what loan duration is
@@ -59,7 +59,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var commitment = 100;
             var riskRating = 10;
             var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewTermLoan(commitment, maturity, riskRating);
+            var loan = Loan.NewRevolver(commitment, maturity, riskRating);
             loan.AddPayment(10, currentDate.AddYears(3));
 
             // warning: I have no idea what loan duration is
