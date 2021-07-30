@@ -4,9 +4,8 @@ using Xunit;
 
 namespace replace_conditional_with_strategy.test.initial_state
 {
-    public class TermLoan_Capital
+    public class RevolverLoan_Capital
     {
-        // note: calculated values vary throughout the day, since the implementation uses DateTime.Now :(
         const int AssertToDecimalPlaces = 0;
 
         [Fact]
@@ -16,9 +15,8 @@ namespace replace_conditional_with_strategy.test.initial_state
             var commitment = 100;
             var riskRating = 10;
             var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewTermLoan(commitment, maturity, riskRating);
+            var loan = Loan.NewRevolver(commitment, maturity, riskRating);
 
-            // warning: I have no idea what loan capital is
             Assert.Equal(double.NaN, loan.Capital());
         }
 
@@ -36,7 +34,7 @@ namespace replace_conditional_with_strategy.test.initial_state
         }
     }
 
-    public class TermLoan_Duration
+    public class RevolverLoan_Duration
     {
         const int AssertToDecimalPlaces = 0;
 
