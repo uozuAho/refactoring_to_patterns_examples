@@ -47,12 +47,15 @@ namespace replace_conditional_with_strategy.initial_state
         public double Capital()
         {
             if (_expiry == null && _maturity != null)
+                // term loan
                 return _commitment * Duration() * RiskFactor();
             if (_expiry != null && _maturity == null)
             {
                 if (GetUnusedPercentage() != 1.0)
+                    // advised line
                     return _commitment * GetUnusedPercentage() * Duration() * RiskFactor();
                 else
+                    // revolver
                     return (OutstandingRiskAmount() * Duration() * RiskFactor())
                            + (UnusedRiskAmount() * Duration() * UnusedRiskFactor());
             }
@@ -82,8 +85,11 @@ namespace replace_conditional_with_strategy.initial_state
 
         public double Duration()
         {
+            // term loan
             if (_expiry == null && _maturity != null) return WeightedAverageDuration();
+            // advised line
             else if (_expiry != null && _maturity == null) return YearsTo(_expiry.Value);
+            // revolver
             return 0.0;
         }
 
