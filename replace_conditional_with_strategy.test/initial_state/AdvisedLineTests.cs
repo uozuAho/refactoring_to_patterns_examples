@@ -9,28 +9,28 @@ namespace replace_conditional_with_strategy.test.initial_state
         const int AssertToDecimalPlaces = 0;
 
         [Fact]
-        public void With_no_payments_is_NaN()
+        public void With_no_payments_and_expiry_in_1_year_is_9312()
         {
             var currentDate = DateTime.Today;
             var commitment = 100;
             var riskRating = 10;
-            var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewAdvisedLine(commitment, maturity, riskRating);
+            var expiry = currentDate.AddYears(1);
+            var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
 
-            Assert.Equal(double.NaN, loan.Capital());
+            Assert.Equal(9312, loan.Capital(), AssertToDecimalPlaces);
         }
 
         [Fact]
-        public void With_one_payment_is_810_14()
+        public void With_one_payment_of_1000_is_9312()
         {
             var currentDate = DateTime.Today;
             var commitment = 100;
             var riskRating = 10;
-            var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewAdvisedLine(commitment, maturity, riskRating);
-            loan.AddPayment(10, currentDate.AddYears(2));
+            var expiry = currentDate.AddYears(1);
+            var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
+            loan.AddPayment(1000, currentDate.AddYears(2));
 
-            Assert.Equal(810.14, loan.Capital(), AssertToDecimalPlaces);
+            Assert.Equal(9312, loan.Capital(), AssertToDecimalPlaces);
         }
     }
 
@@ -39,31 +39,32 @@ namespace replace_conditional_with_strategy.test.initial_state
         const int AssertToDecimalPlaces = 0;
 
         [Fact]
-        public void With_one_payment_in_two_years_is_2()
+        public void With_1_year_expiry_is_1()
         {
             var currentDate = DateTime.Today;
             var commitment = 100;
             var riskRating = 10;
-            var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewAdvisedLine(commitment, maturity, riskRating);
-            loan.AddPayment(10, currentDate.AddYears(2));
+            var expiry = currentDate.AddYears(1);
+            var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
 
             // warning: I have no idea what loan duration is
-            Assert.Equal(2, loan.Duration(), AssertToDecimalPlaces);
+            Assert.Equal(1, loan.Duration(), AssertToDecimalPlaces);
         }
 
         [Fact]
-        public void With_one_payment_in_three_years_is_3()
+        public void Is_not_affected_by_payments()
         {
             var currentDate = DateTime.Today;
             var commitment = 100;
             var riskRating = 10;
-            var maturity = currentDate.AddDays(7);
-            var loan = Loan.NewAdvisedLine(commitment, maturity, riskRating);
+            var expiry = currentDate.AddYears(1);
+            var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
+            loan.AddPayment(10, currentDate.AddYears(1));
+            loan.AddPayment(10, currentDate.AddYears(2));
             loan.AddPayment(10, currentDate.AddYears(3));
 
             // warning: I have no idea what loan duration is
-            Assert.Equal(3, loan.Duration(), AssertToDecimalPlaces);
+            Assert.Equal(1, loan.Duration(), AssertToDecimalPlaces);
         }
     }
 }

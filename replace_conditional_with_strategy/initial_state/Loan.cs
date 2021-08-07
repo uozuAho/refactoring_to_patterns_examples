@@ -14,26 +14,34 @@ namespace replace_conditional_with_strategy.initial_state
         private const int DaysPerYear = 360;
         private double _riskRating;
 
-        private Loan(double commitment, DateTime? maturity, double riskRating)
+        private Loan(
+            double commitment,
+            DateTime? expiry,
+            DateTime? maturity,
+            double riskRating)
         {
             _commitment = commitment;
+            _expiry = expiry;
             _maturity = maturity;
             _riskRating = riskRating;
         }
 
-        public static Loan NewTermLoan(double commitment, DateTime maturity, double riskRating)
+        public static Loan NewTermLoan(
+            double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, null, maturity, riskRating);
         }
 
-        public static Loan NewRevolver(double commitment, DateTime maturity, double riskRating)
+        public static Loan NewRevolver(
+            double commitment, DateTime expiry, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, expiry, null, riskRating);
         }
 
-        public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
+        public static Loan NewAdvisedLine(
+            double commitment, DateTime expiry, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, expiry, null, riskRating);
         }
 
         public double Capital()
