@@ -1,13 +1,12 @@
 using System;
 using replace_conditional_with_strategy.initial_state;
+using replace_conditional_with_strategy.test.utils;
 using Xunit;
 
 namespace replace_conditional_with_strategy.test.initial_state
 {
     public class AdvisedLine_Capital
     {
-        const int AssertToDecimalPlaces = 0;
-
         [Fact]
         public void With_no_payments_and_expiry_in_1_year_is_9312()
         {
@@ -17,7 +16,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var expiry = currentDate.AddYears(1);
             var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
 
-            Assert.Equal(9312, loan.Capital(), AssertToDecimalPlaces);
+            Assert.Equal(9312, loan.Capital(), new Within(5));
         }
 
         [Fact]
@@ -30,14 +29,12 @@ namespace replace_conditional_with_strategy.test.initial_state
             var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
             loan.AddPayment(1000, currentDate.AddYears(2));
 
-            Assert.Equal(9312, loan.Capital(), AssertToDecimalPlaces);
+            Assert.Equal(9312, loan.Capital(), new Within(5));
         }
     }
 
     public class AdvisedLine_Duration
     {
-        const int AssertToDecimalPlaces = 0;
-
         [Fact]
         public void With_1_year_expiry_is_1()
         {
@@ -48,7 +45,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
 
             // warning: I have no idea what loan duration is
-            Assert.Equal(1, loan.Duration(), AssertToDecimalPlaces);
+            Assert.Equal(1, loan.Duration(), new Within(0.5));
         }
 
         [Fact]
@@ -64,7 +61,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             loan.AddPayment(10, currentDate.AddYears(3));
 
             // warning: I have no idea what loan duration is
-            Assert.Equal(1, loan.Duration(), AssertToDecimalPlaces);
+            Assert.Equal(1, loan.Duration(), new Within(0.5));
         }
     }
 }

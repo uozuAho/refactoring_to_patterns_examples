@@ -20,5 +20,8 @@ is just an example of how a complex conditional can be extracted to a strategy
 pattern - not an example of the best solution design.
 
 The tests are probably incorrect - I have no idea what loan capital or duration
-is. They're just there to enforce the habit of running tests after each small
-change. There's also probably enough test coverage for all loan scenarios.
+is. The code also depends on hard-coded DateTime.Now, thus values change
+throughout the day. Rather than inject a time provider (which I should have
+done), I've added tolerance to the assertions in the tests. The tests are just
+there to enforce the habit of running tests after each small change. There's
+also probably enough test coverage for all loan scenarios.
