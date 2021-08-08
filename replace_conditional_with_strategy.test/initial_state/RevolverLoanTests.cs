@@ -16,7 +16,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var expiry = currentDate.AddYears(1);
             var loan = Loan.NewRevolver(commitment, expiry, riskRating);
 
-            Assert.Equal(405, loan.Capital(), new Within(15));
+            Assert.Equal(0, loan.Capital(), new Within(15));
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var loan = Loan.NewRevolver(commitment, expiry, riskRating);
             loan.AddPayment(10, currentDate.AddYears(2));
 
-            Assert.Equal(405, loan.Capital(), new Within(15));
+            Assert.Equal(0, loan.Capital(), new Within(15));
         }
     }
 
@@ -45,7 +45,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var loan = Loan.NewRevolver(commitment, expiry, riskRating);
 
             // warning: I have no idea what loan duration is
-            Assert.Equal(1, loan.Duration(), new Within(0.5));
+            Assert.Equal(0, loan.Duration(), new Within(0.5));
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             loan.AddPayment(10, currentDate.AddYears(3));
 
             // warning: I have no idea what loan duration is
-            Assert.Equal(1, loan.Duration(), new Within(0.5));
+            Assert.Equal(0, loan.Duration(), new Within(0.5));
         }
     }
 }

@@ -92,9 +92,18 @@ namespace replace_conditional_with_strategy.initial_state
         {
             // term loan
             if (_expiry == null && _maturity != null) return WeightedAverageDuration();
-            // advised line
-            else if (_expiry != null && _maturity == null) return YearsTo(_expiry.Value);
-            // revolver
+            else if (_expiry != null && _maturity == null)
+            {
+                if (GetUnusedPercentage() != 1.0)
+                    // advised line
+                    return YearsTo(_expiry.Value);
+                else
+                {
+                    // revolver
+                    return 0.0;
+                }
+            }
+
             return 0.0;
         }
 
