@@ -8,7 +8,7 @@ namespace replace_conditional_with_strategy.test.initial_state
     public class AdvisedLine_Capital
     {
         [Fact]
-        public void With_no_payments_and_expiry_in_1_year_is_9312()
+        public void With_no_payments_and_expiry_in_1_year_is_40()
         {
             var currentDate = DateTime.Today;
             var commitment = 100;
@@ -16,11 +16,11 @@ namespace replace_conditional_with_strategy.test.initial_state
             var expiry = currentDate.AddYears(1);
             var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
 
-            Assert.Equal(9312, loan.Capital(), new Within(5));
+            Assert.Equal(40, loan.Capital(), new Within(15));
         }
 
         [Fact]
-        public void With_one_payment_of_1000_is_9312()
+        public void With_one_payment_of_1000_is_40()
         {
             var currentDate = DateTime.Today;
             var commitment = 100;
@@ -29,7 +29,7 @@ namespace replace_conditional_with_strategy.test.initial_state
             var loan = Loan.NewAdvisedLine(commitment, expiry, riskRating);
             loan.AddPayment(1000, currentDate.AddYears(2));
 
-            Assert.Equal(9312, loan.Capital(), new Within(5));
+            Assert.Equal(40, loan.Capital(), new Within(15));
         }
     }
 

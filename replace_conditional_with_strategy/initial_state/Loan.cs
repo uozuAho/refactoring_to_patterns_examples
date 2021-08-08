@@ -13,6 +13,7 @@ namespace replace_conditional_with_strategy.initial_state
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
         private double _riskRating;
+        private double _unusedPercentage = 1.0;
 
         private Loan(
             double commitment,
@@ -41,7 +42,11 @@ namespace replace_conditional_with_strategy.initial_state
         public static Loan NewAdvisedLine(
             double commitment, DateTime expiry, double riskRating)
         {
-            return new Loan(commitment, expiry, null, riskRating);
+            var loan = new Loan(commitment, expiry, null, riskRating)
+            {
+                _unusedPercentage = 0.1
+            };
+            return loan;
         }
 
         public double Capital()
@@ -70,7 +75,7 @@ namespace replace_conditional_with_strategy.initial_state
 
         private double GetUnusedPercentage()
         {
-            return 23;
+            return _unusedPercentage;
         }
 
         private double OutstandingRiskAmount()
