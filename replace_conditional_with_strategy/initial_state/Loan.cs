@@ -9,42 +9,58 @@ namespace replace_conditional_with_strategy.initial_state
         private DateTime? _maturity;
         private double _commitment;
         private double _outstanding;
-        private List<Payment> _payments;
+        private List<Payment> _payments = new List<Payment>();
         private const int MillisPerDay = 3600 * 24 * 1000;
         private const int DaysPerYear = 360;
         private double _riskRating;
+        private double _unusedPercentage = 1.0;
 
-        private Loan(double commitment, DateTime? maturity, double riskRating)
+        private Loan(
+            double commitment,
+            DateTime? expiry,
+            DateTime? maturity,
+            double riskRating)
         {
             _commitment = commitment;
+            _expiry = expiry;
             _maturity = maturity;
             _riskRating = riskRating;
         }
 
-        public static Loan NewTermLoan(double commitment, DateTime maturity, double riskRating)
+        public static Loan NewTermLoan(
+            double commitment, DateTime maturity, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, null, maturity, riskRating);
         }
 
-        public static Loan NewRevolver(double commitment, DateTime maturity, double riskRating)
+        public static Loan NewRevolver(
+            double commitment, DateTime expiry, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            return new Loan(commitment, expiry, null, riskRating);
         }
 
-        public static Loan NewAdvisedLine(double commitment, DateTime? maturity, double riskRating)
+        public static Loan NewAdvisedLine(
+            double commitment, DateTime expiry, double riskRating)
         {
-            return new Loan(commitment, maturity, riskRating);
+            var loan = new Loan(commitment, expiry, null, riskRating)
+            {
+                _unusedPercentage = 0.1
+            };
+            return loan;
         }
 
         public double Capital()
         {
             if (_expiry == null && _maturity != null)
+                // term loan
                 return _commitment * Duration() * RiskFactor();
             if (_expiry != null && _maturity == null)
             {
                 if (GetUnusedPercentage() != 1.0)
+                    // advised line
                     return _commitment * GetUnusedPercentage() * Duration() * RiskFactor();
                 else
+                    // revolver
                     return (OutstandingRiskAmount() * Duration() * RiskFactor())
                            + (UnusedRiskAmount() * Duration() * UnusedRiskFactor());
             }
@@ -52,9 +68,14 @@ namespace replace_conditional_with_strategy.initial_state
             return 0.0;
         }
 
+        public void AddPayment(double amount, DateTime date)
+        {
+            _payments.Add(new Payment(amount, date));
+        }
+
         private double GetUnusedPercentage()
         {
-            return 23;
+            return _unusedPercentage;
         }
 
         private double OutstandingRiskAmount()
@@ -69,8 +90,20 @@ namespace replace_conditional_with_strategy.initial_state
 
         public double Duration()
         {
+            // term loan
             if (_expiry == null && _maturity != null) return WeightedAverageDuration();
-            else if (_expiry != null && _maturity == null) return YearsTo(_expiry.Value);
+            else if (_expiry != null && _maturity == null)
+            {
+                if (GetUnusedPercentage() != 1.0)
+                    // advised line
+                    return YearsTo(_expiry.Value);
+                else
+                {
+                    // revolver
+                    return 0.0;
+                }
+            }
+
             return 0.0;
         }
 
@@ -92,7 +125,8 @@ namespace replace_conditional_with_strategy.initial_state
         private double YearsTo(DateTime endDate)
         {
             var beginDate = DateTime.Now;
-            return ((endDate - beginDate).Milliseconds / MillisPerDay) / DaysPerYear;
+            var years = (endDate - beginDate).TotalDays / DaysPerYear;
+            return years;
         }
 
         private double RiskFactor()
